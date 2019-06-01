@@ -2,5 +2,5 @@
 # bin/detect <build-dir>
 
 
-echo "nodejs with custom BUILD_DIR"
+echo "nodejs with CUSTOM_BUILD_DIR"
 exit 0

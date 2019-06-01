@@ -316,3 +316,16 @@ warn_unmet_dep "$LOG_FILE"
 warn_old_npm_lockfile $NPM_LOCK
 
 log_meta_data >> "$BUILDPACK_LOG_FILE"
+
+# CUSTOM_BUILD_DIR - copy executables to root
+# check if the buildpack left any executables behind
+if [ -d $BUILD_DIR/.heroku ]; then
+  mkdir -p $1/.heroku
+  cp -R $BUILD_DIR/.heroku/* $1/.heroku
+fi
+
+ # check if the buildpack left any .profile.d scripts behind
+if [ -d $BUILD_DIR/.profile.d ]; then
+  mkdir -p $1/.profile.d
+  cp -R $BUILD_DIR/.profile.d/* $1/.profile.d
+fi
