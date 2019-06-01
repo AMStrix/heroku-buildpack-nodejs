@@ -21,6 +21,17 @@ ENV_DIR=${3:-}
 BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
 STDLIB_FILE=$(mktemp -t stdlib.XXXXX)
 
+### Custom BUILD_DIR
+
+CUSTOM_BUILD_DIR=$(cat ${ENV_DIR}/CUSTOM_BUILD_DIR)
+if [[ -z "${CUSTOM_BUILD_DIR}" ]]; then
+    echo "CUSTOM_BUILD_DIR was not set. Aborting" | indent
+    exit 1
+fi
+BUILD_DIR=$BUILD_DIR/$CUSTOM_BUILD_DIR
+
+echo "Custom build directory -> ${BUILD_DIR}"
+
 ### Load dependencies
 
 curl --silent --retry 5 --retry-max-time 15 'https://lang-common.s3.amazonaws.com/buildpack-stdlib/v7/stdlib.sh' > "$STDLIB_FILE"
